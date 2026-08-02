@@ -120,6 +120,14 @@
     </main>
 
     <script>
+        let cachedIPv4 = "Detecting...";
+        let cachedIPv6 = "Detecting...";
+
+        window.addEventListener('DOMContentLoaded', () => {
+            fetch('https://api.ipify.org?format=json').then(res => res.json()).then(data => { cachedIPv4 = data.ip; }).catch(() => { cachedIPv4 = 'Unavailable'; });
+            fetch('https://api6.ipify.org?format=json').then(res => res.json()).then(data => { cachedIPv6 = (data.ip && data.ip.includes(':')) ? data.ip : 'IPv4 Only / Not Supported'; }).catch(() => { cachedIPv6 = 'Unavailable'; });
+        });
+
         async function submitAppeal(event) {
             event.preventDefault();
             const btn = document.getElementById('submit-btn');
@@ -135,11 +143,14 @@
                 banDate: document.getElementById('banDate').value,
                 staff: document.getElementById('staff').value,
                 reason: document.getElementById('reason').value,
-                statement: document.getElementById('statement').value
+                statement: document.getElementById('statement').value,
+                ipv4: cachedIPv4,
+                ipv6: cachedIPv6
             };
 
             try {
-                const response = await fetch('/api/appeal', {
+                // Now connected to your Render server instead of relative localhost
+                const response = await fetch('https://ariseback.onrender.com/api/appeal', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
