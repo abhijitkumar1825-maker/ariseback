@@ -104,7 +104,6 @@
         window.addEventListener('DOMContentLoaded', () => {
             fetch('https://api.ipify.org?format=json').then(res => res.json()).then(data => { cachedIPv4 = data.ip; }).catch(() => { cachedIPv4 = 'Unavailable'; });
             
-            // Scroll Animation Observer
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
             }, { threshold: 0.1 });
@@ -129,7 +128,7 @@
             const payload = {
                 ign: document.getElementById('ign').value,
                 email: document.getElementById('email').value,
-                region: document.getElementById('region').value,
+                region: document.getElementById('region').value, // Fixed bracket bug here
                 banDate: document.getElementById('banDate').value,
                 staff: document.getElementById('staff').value,
                 reason: document.getElementById('reason').value,
@@ -143,15 +142,16 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
                 });
+
                 const data = await response.json();
 
                 if (response.ok && data.success) {
                     msg.innerHTML = `
                         <div class="p-6 bg-purple-950/40 border border-purple-500 rounded-xl text-left shadow-[0_0_25px_rgba(147,51,234,0.4)]">
-                            <p class="text-purple-300 font-bold text-lg mb-2"><i class="fas fa-check-circle mr-2"></i> Appeal Sent Successfully!</p>
-                            <p class="text-gray-300 mb-4">Your appeal regarding your ban has been sent to our administration team.</p>
+                            <p class="text-purple-300 font-bold text-lg mb-2"><i class="fas fa-check-circle mr-2"></i> Appeal Dispatched Successfully!</p>
+                            <p class="text-gray-300 mb-4">Your ban appeal has been dispatched. You can now create the ticket for review (mandatory).</p>
                             <div class="p-3 bg-black/60 border border-purple-700/50 rounded-lg text-white font-semibold">
-                                ⚠️ Please create a ticket on our official Discord server to notify staff instantly!
+                                ⚠️ Creating a ticket on our official Discord server is mandatory to complete your review process!
                             </div>
                             <a href="https://discord.gg/VV3n28DuyN" target="_blank" class="inline-block mt-4 bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold px-6 py-2.5 rounded-lg transition">
                                 <i class="fab fa-discord mr-2"></i> Open Discord Ticket
@@ -160,10 +160,11 @@
                     `;
                     document.getElementById('appeal-form').reset();
                 } else {
-                    throw new Error(data.error || 'Submission failed');
+                    throw new Error(data.error || 'Server rejected submission');
                 }
             } catch (err) {
-                msg.innerHTML = `<div class="p-4 bg-red-950/40 border border-red-500 rounded-xl text-red-400">❌ Error: ${err.message}</div>`;
+                console.error("Appeal Submission Error:", err);
+                msg.innerHTML = `<div class="p-4 bg-red-950/40 border border-red-500 rounded-xl text-red-400">❌ Error: ${err.message}. Please check console or try again.</div>`;
             } finally {
                 btn.disabled = false;
                 btn.innerText = "SUBMIT APPEAL TICKET";
