@@ -3,18 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ARISE SMP | Rules</title>
+    <title>ARISE SMP | Server Regulations</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body { background-color: #030005; color: #ffffff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
         h1, h2, h3, .font-heading { font-family: 'Rajdhani', sans-serif; }
-        .aura-border { border: 1px solid rgba(147, 51, 234, 0.3); box-shadow: 0 0 15px rgba(88, 28, 135, 0.2); }
+        .aura-border { border: 1px solid rgba(147, 51, 234, 0.3); box-shadow: 0 0 15px rgba(88, 28, 135, 0.2); transition: transform 0.3s ease; }
+        .aura-border:hover { transform: translateY(-5px); border-color: #a855f7; box-shadow: 0 0 25px rgba(168, 85, 247, 0.4); }
         .nav-item { transition: all 0.3s ease; }
         .nav-item:hover { background: linear-gradient(90deg, rgba(147, 51, 234, 0.2) 0%, transparent 100%); border-left: 4px solid #a855f7; color: #d8b4fe; text-shadow: 0 0 8px rgba(168, 85, 247, 0.8); }
         .sidebar { transition: transform 0.4s ease-in-out; z-index: 50; }
         @media (max-width: 768px) { .sidebar-hidden { transform: translateX(-100%); } }
+        
+        /* Smooth Page Load Animation */
+        .fade-in-up { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; transform: translateY(30px); }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body class="flex">
@@ -37,48 +42,63 @@
         </nav>
     </aside>
 
-    <main class="flex-1 md:ml-64 min-h-screen p-6 md:p-12 relative z-10">
-        <div class="max-w-5xl mx-auto mt-8">
+    <main class="flex-1 md:ml-64 min-h-screen p-6 md:p-12 relative z-10 fade-in-up">
+        <div class="max-w-5xl mx-auto mt-4">
             <div class="text-center mb-12">
                 <h1 class="text-4xl md:text-6xl font-extrabold uppercase mb-3">Server <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#a855f7] to-[#d8b4fe]">Regulations</span></h1>
-                <p class="text-gray-400 text-sm md:text-base">Ignorance of the rules is not an excuse. Read carefully to maintain your standing.</p>
+                <p class="text-gray-400 text-sm md:text-base">Welcome to Arise SMP! To keep our server fun, fair, and safe for everyone, all players must adhere to the following rules.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                 <!-- Rule 1 -->
-                <div class="bg-[#050505] aura-border p-6 rounded-2xl">
-                    <div class="flex items-center mb-3">
-                        <div class="w-10 h-10 rounded-full bg-red-900/30 border border-red-500 text-red-400 flex items-center justify-center font-bold text-lg mr-4">1</div>
-                        <h3 class="text-xl font-bold uppercase text-white">No Cheating / Clients</h3>
+                <div class="bg-[#050505] aura-border p-8 rounded-3xl">
+                    <div class="flex items-center border-b border-red-900/50 pb-4 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-red-900/30 border border-red-500 text-red-400 flex items-center justify-center font-bold text-xl mr-4 shadow-[0_0_10px_rgba(239,68,68,0.4)]">🛡️</div>
+                        <h3 class="text-2xl font-bold uppercase text-white">Fair Play & Server Integrity</h3>
                     </div>
-                    <p class="text-gray-400 text-sm leading-relaxed">The use of any unauthorized client modifications, hacks, x-ray texture packs, or auto-clickers is strictly prohibited. Our anti-cheat will permanently ban violators.</p>
+                    <ul class="text-gray-400 text-sm leading-relaxed space-y-3 list-disc list-inside">
+                        <li><strong class="text-white">No Hacking or Cheating:</strong> The use of hacked clients, X-Ray texture packs, auto-clickers, or exploit mods is strictly prohibited.</li>
+                        <li><strong class="text-white">No Exploiting Bugs:</strong> If you discover a glitch or duping exploit, report it immediately to the staff team. Exploiting bugs will result in an immediate ban.</li>
+                        <li><strong class="text-white">Lag Machines:</strong> Do not build intentional lag machines or redstone loops that impair server performance.</li>
+                    </ul>
                 </div>
 
                 <!-- Rule 2 -->
-                <div class="bg-[#050505] aura-border p-6 rounded-2xl">
-                    <div class="flex items-center mb-3">
-                        <div class="w-10 h-10 rounded-full bg-purple-900/30 border border-purple-500 text-purple-400 flex items-center justify-center font-bold text-lg mr-4">2</div>
-                        <h3 class="text-xl font-bold uppercase text-white">Respect All Players</h3>
+                <div class="bg-[#050505] aura-border p-8 rounded-3xl">
+                    <div class="flex items-center border-b border-purple-900/50 pb-4 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-purple-900/30 border border-purple-500 text-purple-400 flex items-center justify-center font-bold text-xl mr-4 shadow-[0_0_10px_rgba(168,85,247,0.4)]">💬</div>
+                        <h3 class="text-2xl font-bold uppercase text-white">Chat & Community Etiquette</h3>
                     </div>
-                    <p class="text-gray-400 text-sm leading-relaxed">Harassment, hate speech, racism, and extreme toxicity are not tolerated. Trash talk during PvP is fine, but crossing the line into personal attacks will result in a mute or ban.</p>
+                    <ul class="text-gray-400 text-sm leading-relaxed space-y-3 list-disc list-inside">
+                        <li><strong class="text-white">Be Respectful:</strong> Treat all members and staff with courtesy. Toxicity, harassment, or personal attacks will not be tolerated.</li>
+                        <li><strong class="text-white">Zero Tolerance Policy:</strong> Hate speech, discrimination, offensive slurs, or inappropriate content are strictly forbidden.</li>
+                        <li><strong class="text-white">No Spamming:</strong> Keep chat readable. Avoid excessive caps, spamming messages, or advertising other servers/websites.</li>
+                    </ul>
                 </div>
 
                 <!-- Rule 3 -->
-                <div class="bg-[#050505] aura-border p-6 rounded-2xl">
-                    <div class="flex items-center mb-3">
-                        <div class="w-10 h-10 rounded-full bg-yellow-900/30 border border-yellow-500 text-yellow-400 flex items-center justify-center font-bold text-lg mr-4">3</div>
-                        <h3 class="text-xl font-bold uppercase text-white">No Bug Abuse</h3>
+                <div class="bg-[#050505] aura-border p-8 rounded-3xl">
+                    <div class="flex items-center border-b border-yellow-900/50 pb-4 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-yellow-900/30 border border-yellow-500 text-yellow-400 flex items-center justify-center font-bold text-xl mr-4 shadow-[0_0_10px_rgba(234,179,8,0.4)]">⚔️</div>
+                        <h3 class="text-2xl font-bold uppercase text-white">Gameplay & PvP</h3>
                     </div>
-                    <p class="text-gray-400 text-sm leading-relaxed">Exploiting server bugs, duplication glitches, or abusing mechanics intended to give an unfair advantage will result in an immediate economy wipe and ban.</p>
+                    <ul class="text-gray-400 text-sm leading-relaxed space-y-3 list-disc list-inside">
+                        <li><strong class="text-white">PvP Consent:</strong> PvP is only allowed when both players agree, unless designated in specific open-PvP zones or lore events.</li>
+                        <li><strong class="text-white">Griefing & Stealing:</strong> Respect other players' builds and property. Griefing or stealing from claimed areas/unclaimed bases without permission is not allowed.</li>
+                        <li><strong class="text-white">Spawn Protection:</strong> Spawn is a safe zone. No PvP, traps, or lava placement around spawn areas.</li>
+                    </ul>
                 </div>
 
                 <!-- Rule 4 -->
-                <div class="bg-[#050505] aura-border p-6 rounded-2xl">
-                    <div class="flex items-center mb-3">
-                        <div class="w-10 h-10 rounded-full bg-blue-900/30 border border-blue-500 text-blue-400 flex items-center justify-center font-bold text-lg mr-4">4</div>
-                        <h3 class="text-xl font-bold uppercase text-white">No Advertising</h3>
+                <div class="bg-[#050505] aura-border p-8 rounded-3xl">
+                    <div class="flex items-center border-b border-blue-900/50 pb-4 mb-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-900/30 border border-blue-500 text-blue-400 flex items-center justify-center font-bold text-xl mr-4 shadow-[0_0_10px_rgba(59,130,246,0.4)]">⚖️</div>
+                        <h3 class="text-2xl font-bold uppercase text-white">Enforcement & Punishment</h3>
                     </div>
-                    <p class="text-gray-400 text-sm leading-relaxed">Promoting other Minecraft servers, Discord communities, or unauthorized websites in the public chat or via private messages is highly restricted.</p>
+                    <ul class="text-gray-400 text-sm leading-relaxed space-y-3 list-disc list-inside">
+                        <li><strong class="text-white">Moderator Discretion:</strong> Server administrators and moderators reserve the right to warn, kick, or ban players who break these rules. Punishments may vary based on the severity and frequency of the infraction.</li>
+                        <li><strong class="text-white">Support Tickets:</strong> If you notice someone breaking the rules, please open a Support Ticket in our Discord server with evidence (screenshots/video). Have fun and happy building!</li>
+                    </ul>
                 </div>
             </div>
         </div>
