@@ -45,69 +45,78 @@ app.post('/api/appeal', async (req, res) => {
         const forwarded = req.headers['x-forwarded-for'];
         const backendIP = forwarded ? forwarded.split(/, /)[0] : req.socket.remoteAddress;
         const finalIPv4 = ipv4 && ipv4 !== 'Unavailable' ? ipv4 : backendIP;
-        const finalIPv6 = ipv6 && ipv6 !== 'Unavailable' ? ipv6 : 'N/A';
 
         const acceptUrl = `${SERVER_URL}/api/appeal/action?action=accept&email=${encodeURIComponent(email)}&ign=${encodeURIComponent(ign)}`;
         const denyUrl = `${SERVER_URL}/api/appeal/action?action=deny&email=${encodeURIComponent(email)}&ign=${encodeURIComponent(ign)}`;
 
+        // Safe Discord Webhook Dispatch
         if (DISCORD_WEBHOOK) {
-            const discordPayload = {
-                content: "🚨 **NEW BAN APPEAL TICKET SUBMITTED**",
-                embeds: [{
-                    color: 10181046,
-                    title: `Player Appeal: ${ign}`,
-                    description: `**📝 Reason Banned:**\n> ${reason}\n\n**💬 Statement:**\n> ${statement}`,
-                    fields: [
-                        { name: "👤 Username", value: ign, inline: true },
-                        { name: "📧 Email", value: email, inline: true },
-                        { name: "🌍 Region", value: region || 'N/A', inline: true },
-                        { name: "👮 Staff", value: staff || 'N/A', inline: true },
-                        { name: "📡 IPv4", value: finalIPv4, inline: true }
-                    ],
-                    timestamp: new Date().toISOString()
-                }],
-                components: [
-                    {
-                        type: 1,
-                        components: [
-                            { type: 2, style: 3, label: "✅ ACCEPT APPEAL", custom_id: "accept_appeal", url: acceptUrl },
-                            { type: 2, style: 4, label: "❌ DENY APPEAL", custom_id: "deny_appeal", url: denyUrl }
-                        ]
-                    }
-                ]
-            };
+            try {
+                const discordPayload = {
+                    content: "🚨 **NEW BAN APPEAL TICKET SUBMITTED**",
+                    embeds: [{
+                        color: 10181046,
+                        title: `Player Appeal: ${ign}`,
+                        description: `**📝 Reason Banned:**\n> ${reason}\n\n**💬 Statement:**\n> ${statement}`,
+                        fields: [
+                            { name: "👤 Username", value: ign, inline: true },
+                            { name: "📧 Email", value: email, inline: true },
+                            { name: "🌍 Region", value: region || 'N/A', inline: true },
+                            { name: "👮 Staff", value: staff || 'N/A', inline: true },
+                            { name: "📡 IPv4", value: finalIPv4, inline: true }
+                        ],
+                        timestamp: new Date().toISOString()
+                    }],
+                    components: [
+                        {
+                            type: 1,
+                            components: [
+                                { type: 2, style: 3, label: "✅ ACCEPT APPEAL", custom_id: "accept_appeal", url: acceptUrl },
+                                { type: 2, style: 4, label: "❌ DENY APPEAL", custom_id: "deny_appeal", url: denyUrl }
+                            ]
+                        }
+                    ]
+                };
 
-            await fetch(DISCORD_WEBHOOK, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(discordPayload)
-            });
+                await fetch(DISCORD_WEBHOOK, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(discordPayload)
+                });
+            } catch (webhookErr) {
+                console.error("Discord Webhook Failed (non-blocking):", webhookErr);
+            }
         }
 
-        const staffMailHtml = `
-            <div style="font-family: Arial; background: #000; color: #fff; padding: 20px; border-radius: 10px;">
-                <h2 style="color: #c084fc;">🚨 New Ban Appeal: ${ign}</h2>
-                <p><strong>Email:</strong> ${email}</p>
-                <p><strong>Reason:</strong> ${reason}</p>
-                <p><strong>Statement:</strong> ${statement}</p>
-                <p><strong>IPv4:</strong> ${finalIPv4}</p>
-                <div style="margin-top: 20px;">
-                    <a href="${acceptUrl}" style="background: #22c55e; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-right: 10px;">ACCEPT</a>
-                    <a href="${denyUrl}" style="background: #ef4444; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">DENY</a>
+        // Safe Email Dispatch
+        try {
+            const staffMailHtml = `
+                <div style="font-family: Arial; background: #000; color: #fff; padding: 20px; border-radius: 10px;">
+                    <h2 style="color: #c084fc;">🚨 New Ban Appeal: ${ign}</h2>
+                    <p><strong>Email:</strong> ${email}</p>
+                    <p><strong>Reason:</strong> ${reason}</p>
+                    <p><strong>Statement:</strong> ${statement}</p>
+                    <p><strong>IPv4:</strong> ${finalIPv4}</p>
+                    <div style="margin-top: 20px;">
+                        <a href="${acceptUrl}" style="background: #22c55e; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-right: 10px;">ACCEPT</a>
+                        <a href="${denyUrl}" style="background: #ef4444; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold;">DENY</a>
+                    </div>
                 </div>
-            </div>
-        `;
+            `;
 
-        await transporter.sendMail({
-            from: '"ARISE SMP Appeals" <arisesmp7@gmail.com>',
-            to: STAFF_EMAIL,
-            subject: `Ban Appeal - ${ign}`,
-            html: staffMailHtml
-        });
+            await transporter.sendMail({
+                from: '"ARISE SMP Appeals" <arisesmp7@gmail.com>',
+                to: STAFF_EMAIL,
+                subject: `Ban Appeal - ${ign}`,
+                html: staffMailHtml
+            });
+        } catch (mailErr) {
+            console.error("Staff Email Failed (non-blocking):", mailErr);
+        }
 
-        res.json({ success: true, message: 'Appeal submitted successfully!' });
+        res.json({ success: true, message: 'Appeal dispatched successfully!' });
     } catch (err) {
-        console.error("Appeal Error:", err);
+        console.error("Appeal Route Critical Error:", err);
         res.status(500).json({ success: false, error: err.message });
     }
 });
