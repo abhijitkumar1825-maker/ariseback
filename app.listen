@@ -1,0 +1,24 @@
+// 3. ARISE AI Console Route
+app.post('/api/ai', async (req, res) => {
+    if (!ai) return res.status(500).json({ error: "Gemini AI Core Offline. API Key missing." });
+    
+    try {
+        const { message } = req.body;
+        if (!message) return res.status(400).json({ error: "Message is required." });
+
+        // Give Gemini its personality!
+        const systemPrompt = "You are the ARISE SMP System AI. You are a highly intelligent, slightly intimidating, but helpful dark-fantasy AI assistant for a competitive Minecraft server. Keep your answers concise, accurate, and in character. Do not use emojis unless absolutely necessary.";
+
+        const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: [
+                { role: 'user', parts: [{ text: `${systemPrompt}\n\nUser Query: ${message}` }] }
+            ]
+        });
+
+        res.json({ reply: response.text });
+    } catch (error) {
+        console.error("Gemini Error:", error);
+        res.status(500).json({ error: "Neural link severed. Failed to generate a response." });
+    }
+});
