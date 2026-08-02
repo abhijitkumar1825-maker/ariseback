@@ -8,6 +8,9 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Serve static frontend files from the 'public' folder
+app.use(express.static(path.join(__dirname, 'public')));
+
 // CORS setup
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -162,4 +165,4 @@ app.post('/api/ai', async (req, res) => {
 });
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`🚀 ARISE SMP Server running on port ${PORT}`));
