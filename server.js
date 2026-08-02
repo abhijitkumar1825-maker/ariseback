@@ -2,27 +2,29 @@ require('dotenv').config();
 const express = require('express');
 const nodemailer = require('nodemailer');
 const path = require('path');
+const { GoogleGenAI } = require('@google/genai');
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
 
-// ALLOW NETLIFY TO COMMUNICATE WITH RENDER
+// 🌐 CORS: ALLOW NETLIFY TO COMMUNICATE WITH RENDER
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
 });
 
-// Clean URL Routes
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
-app.get('/appeal', (req, res) => res.sendFile(path.join(__dirname, 'public', 'appeal.html')));
-app.get('/ranks', (req, res) => res.sendFile(path.join(__dirname, 'public', 'ranks.html')));
-app.get('/console', (req, res) => res.sendFile(path.join(__dirname, 'public', 'console.html')));
-app.get('/rules', (req, res) => res.sendFile(path.join(__dirname, 'public', 'rules.html')));
+// 🧠 INITIALIZE GEMINI AI CORE
+let ai = null;
+if (process.env.GEMINI_API_KEY) {
+    ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+    console.log("✅ Gemini AI Core Initialized successfully.");
+} else {
+    console.warn("⚠️ Gemini API Key missing. AI features will be offline.");
+}
 
-// Nodemailer Config
+// 📧 NODEMAILER CONFIGURATION
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -31,11 +33,14 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+// Environment Variables
 const SERVER_URL = process.env.SERVER_URL || 'https://ariseback.onrender.com';
 const DISCORD_WEBHOOK = process.env.DISCORD_WEBHOOK;
 const STAFF_EMAIL = process.env.STAFF_EMAIL || 'arisesmp7@gmail.com';
 
-// 1. Receive Ban Appeal
+// ==========================================
+// ROUTE 1: RECEIVE BAN APPEAL (FROM NETLIFY)
+// ==========================================
 app.post('/api/appeal', async (req, res) => {
     try {
         const { ign, email, region, banDate, staff, reason, statement, ipv4, ipv6 } = req.body;
@@ -50,7 +55,7 @@ app.post('/api/appeal', async (req, res) => {
         const finalIPv4 = ipv4 && ipv4 !== 'Unavailable' ? ipv4 : backendIP;
         const finalIPv6 = ipv6 && ipv6 !== 'Unavailable' ? ipv6 : 'N/A';
 
-        // Action URLs for buttons
+        // Action URLs for Discord buttons
         const acceptUrl = `${SERVER_URL}/api/appeal/action?action=accept&email=${encodeURIComponent(email)}&ign=${encodeURIComponent(ign)}`;
         const denyUrl = `${SERVER_URL}/api/appeal/action?action=deny&email=${encodeURIComponent(email)}&ign=${encodeURIComponent(ign)}`;
 
@@ -91,7 +96,7 @@ app.post('/api/appeal', async (req, res) => {
             });
         }
 
-        // Send Staff Email
+        // Send Staff Email Backup
         const staffMailHtml = `
             <div style="font-family: Arial, sans-serif; background: #000000; color: #fff; padding: 25px; border: 1px solid #2e1065; border-radius: 12px;">
                 <h2 style="color: #c084fc;">🚨 New Ban Appeal: ${ign}</h2>
@@ -117,12 +122,14 @@ app.post('/api/appeal', async (req, res) => {
 
         res.json({ success: true, message: 'Appeal submitted successfully!' });
     } catch (err) {
-        console.error(err);
+        console.error("Appeal Error:", err);
         res.status(500).json({ success: false, error: err.message });
     }
 });
 
-// 2. Handle Admin Accept/Deny Action
+// ==========================================
+// ROUTE 2: ADMIN DISCORD ACTIONS (ACCEPT/DENY)
+// ==========================================
 app.get('/api/appeal/action', async (req, res) => {
     const { action, email, ign } = req.query;
 
@@ -151,7 +158,6 @@ app.get('/api/appeal/action', async (req, res) => {
             to: email, subject: subject, html: htmlContent
         });
 
-        // Fixed styling for Discord in-app browser view
         res.send(`
             <!DOCTYPE html>
             <html lang="en">
@@ -185,5 +191,35 @@ app.get('/api/appeal/action', async (req, res) => {
     }
 });
 
+// ==========================================
+// ROUTE 3: GEMINI AI CONSOLE
+// ==========================================
+app.post('/api/ai', async (req, res) => {
+    if (!ai) return res.status(500).json({ error: "Gemini AI Core Offline. API Key missing." });
+    
+    try {
+        const { message } = req.body;
+        if (!message) return res.status(400).json({ error: "Message is required." });
+
+        // ARISE SMP System Personality Prompt
+        const systemPrompt = "You are the ARISE SMP System AI. You are a highly intelligent, slightly intimidating, but helpful dark-fantasy AI assistant for a competitive Minecraft server. Keep your answers concise, accurate, and in character. Do not use emojis unless absolutely necessary.";
+
+        const response = await ai.models.generateContent({
+            model: 'gemini-2.5-flash',
+            contents: `${systemPrompt}\n\nUser Query: ${message}`
+        });
+
+        res.json({ reply: response.text });
+    } catch (error) {
+        console.error("Gemini Error:", error);
+        res.status(500).json({ error: "Neural link severed. Failed to generate a response." });
+    }
+});
+
+// ==========================================
+// BOOT UP SERVER
+// ==========================================
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => console.log(`ARISE SMP Server running on port ${PORT}`));
+app.listen(PORT, () => {
+    console.log(`🚀 ARISE SMP Backend Engine running on port ${PORT}`);
+});
