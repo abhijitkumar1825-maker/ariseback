@@ -131,7 +131,7 @@ app.get('/api/appeal/action', async (req, res) => {
     }
 });
 
-// AI Route Fixed for SDK
+// AI Route
 app.post('/api/ai', async (req, res) => {
     if (!ai) return res.status(500).json({ error: "AI Core Offline." });
     try {
@@ -142,9 +142,7 @@ app.post('/api/ai', async (req, res) => {
         
         const response = await ai.models.generateContent({
             model: 'gemini-2.5-flash',
-            contents: [
-                { role: 'user', parts: [{ text: `${systemPrompt}\n\nUser: ${message}` }] }
-            ]
+            contents: `${systemPrompt}\n\nUser: ${message}`
         });
 
         res.json({ reply: response.text });
