@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARISE SMP | Rank Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { arise: { base: '#07040f', card: '#110b22', purple: '#8b5cf6', glow: '#a855f7' } },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Rajdhani', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glow-box { background: linear-gradient(135deg, rgba(25, 15, 48, 0.95) 0%, rgba(12, 7, 24, 0.98) 100%); border: 1px solid rgba(168, 85, 247, 0.4); box-shadow: 0 0 40px rgba(168,85,247,0.25); }
+        .orange-glow-btn { transition: all 0.3s ease; border: 1px solid rgba(249, 115, 22, 0.4); background: rgba(249, 115, 22, 0.1); color: #f97316; display: block; text-align: center; text-decoration: none; }
+        .orange-glow-btn:hover { background: #f97316; color: #ffffff; box-shadow: 0 0 25px rgba(249, 115, 22, 0.8); border-color: #f97316; transform: translateY(-2px); }
+    </style>
+</head>
+<body class="bg-arise-base text-white font-sans antialiased min-h-screen">
+
+    <div class="bg-purple-950/90 border-b border-purple-800/40 text-center py-2.5 px-4 text-xs md:text-sm font-heading font-bold text-purple-300 tracking-wider animate-pulse sticky top-0 z-50">
+        ⚡ ARISE SMP — A Premium Server Experience ⚡
+    </div>
+
+    <nav class="bg-arise-base/90 backdrop-blur-md border-b border-purple-900/30 sticky top-[37px] z-40">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center space-x-3">
+                <img src="./logo.png" alt="Logo" class="h-10 w-10 object-contain" onerror="this.style.display='none'">
+                <span class="font-heading text-2xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-300">ARISE SMP</span>
+            </a>
+            <div class="hidden md:flex space-x-6 font-heading text-lg tracking-wide text-gray-300 items-center">
+                <a href="/" class="hover:text-purple-400 transition">Home</a>
+                <a href="/ranks" class="orange-glow-btn px-4 py-2 rounded-xl font-bold text-sm" style="background:#f97316; color:#fff;">Store Ranks</a>
+                <a href="/console" class="hover:text-purple-400 transition">ARISE AI</a>
+                <a href="/rules" class="orange-glow-btn px-4 py-2 rounded-xl font-bold text-sm">Rules</a>
+                <a href="/appeal" class="orange-glow-btn px-4 py-2 rounded-xl font-bold text-sm">Ban Appeal</a>
+            </div>
+            <a href="https://discord.gg/VV3n28DuyN" target="_blank" class="orange-glow-btn px-5 py-2.5 rounded-xl font-heading font-bold text-sm transition animate-pulse" style="background:#f97316; color:#fff;">
+                💬 Discord
+            </a>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-8 py-16">
+        <a href="/ranks" class="inline-block mb-6 text-purple-400 hover:text-purple-300 font-heading text-lg">← Back to Store Ranks</a>
+        
+        <div id="rank-container" class="glow-box rounded-3xl p-10">
+            <!-- Dynamic Content -->
+        </div>
+    </main>
+
+    <script>
+        const rankData = {
+            rookie: {
+                name: "1. ROOKIE RANK",
+                price: "₹49",
+                items: [
+                    "Diamond Armour & Tools",
+                    "Mending & Unbreaking Enchantments",
+                    "15x Diamonds",
+                    "64x Copper Ingots",
+                    "64x Cookies",
+                    "15x Golden Apples (Gaps)",
+                    "2x Enchanted Golden Apples (Egaps)"
+                ]
+            },
+            warrior: {
+                name: "2. WARRIOR RANK",
+                price: "₹99",
+                items: [
+                    "Max Diamond Armour & Tools",
+                    "32x Diamonds",
+                    "64x Copper Ingots",
+                    "64x Cookies",
+                    "15x Golden Apples (Gaps)",
+                    "5x Enchanted Golden Apples (Egaps)",
+                    "2x Dune Armour Trim"
+                ]
+            },
+            knight: {
+                name: "3. KNIGHT RANK",
+                price: "₹169",
+                items: [
+                    "Netherite Armour & Tools (Mending & Unbreaking, Unchanted)",
+                    "42x Diamonds",
+                    "64x Copper Ingots",
+                    "64x Cookies",
+                    "30x Golden Apples (Gaps)",
+                    "8x Enchanted Golden Apples (Egaps)",
+                    "2x Wax Trim"
+                ]
+            },
+            elite: {
+                name: "4. ELITE RANK",
+                price: "₹259",
+                items: [
+                    "Mending & Unbreakable Enchanted Netherite Armour & Tools",
+                    "50x Diamonds",
+                    "64x Copper Ingots",
+                    "64x Cookies",
+                    "2x Netherite Ingots",
+                    "32x Golden Apples (Gaps)",
+                    "10x Enchanted Golden Apples (Egaps)",
+                    "2x Silence Armour Trim"
+                ]
+            },
+            legend: {
+                name: "5. LEGEND RANK",
+                price: "₹299",
+                items: [
+                    "Max Netherite Armour & Tools",
+                    "64x Diamonds",
+                    "64x Copper Ingots",
+                    "64x Cookies",
+                    "4x Netherite Ingots",
+                    "32x Golden Apples (Gaps)",
+                    "15x Enchanted Golden Apples (Egaps)",
+                    "2x Silence Armour Trim",
+                    "2x Dune Armour Trim",
+                    "Mace (WB-3)"
+                ]
+            },
+            immortal: {
+                name: "6. IMMORTAL RANK",
+                price: "₹359",
+                items: [
+                    "Max Netherite Armour & Tools",
+                    "64x Diamonds",
+                    "64x Copper Ingots",
+                    "64x Golden Apples (Gaps)",
+                    "20x Enchanted Golden Apples (Egaps)",
+                    "4x Silence Armour Trim",
+                    "2x Dune Armour Trim",
+                    "1x Mace (WB-3)",
+                    "1x Elytra"
+                ]
+            }
+        };
+
+        const params = new URLSearchParams(window.location.search);
+        const rankKey = params.get('rank') || 'rookie';
+        const rank = rankData[rankKey] || rankData.rookie;
+
+        document.getElementById('rank-container').innerHTML = `
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b border-purple-900/40 pb-6">
+                <div>
+                    <h1 class="font-heading text-4xl md:text-5xl font-extrabold text-purple-300 mb-2">${rank.name}</h1>
+                    <p class="text-gray-400">Permanent rank privileges & kit bundle for ARISE SMP.</p>
+                </div>
+                <div class="text-4xl font-heading font-extrabold text-emerald-400 mt-4 md:mt-0">${rank.price} <span class="text-sm font-normal text-gray-500">/ lifetime</span></div>
+            </div>
+            <h3 class="font-heading text-2xl font-bold mb-4 text-purple-200">📦 Kit Inclusions & Perks:</h3>
+            <ul class="space-y-3 mb-10 text-gray-300">
+                ${rank.items.map(item => `<li class="flex items-center gap-3">✅ <span>${item}</span></li>`).join('')}
+            </ul>
+            <a href="https://discord.gg/VV3n28DuyN" target="_blank" class="orange-glow-btn w-full py-4 rounded-xl font-heading font-bold text-lg tracking-wide transition shadow-lg">
+                Buy Now — ${rank.price} (Join Discord to Purchase)
+            </a>
+        `;
+    </script>
+</body>
+</html>

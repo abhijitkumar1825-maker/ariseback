@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARISE SMP | Server Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { arise: { base: '#07040f', card: '#110b22', purple: '#8b5cf6', glow: '#a855f7' } },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Rajdhani', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glow-box { background: linear-gradient(135deg, rgba(25, 15, 48, 0.9) 0%, rgba(12, 7, 24, 0.95) 100%); border: 1px solid rgba(168, 85, 247, 0.25); box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .glow-box:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 0 35px rgba(168, 85, 247, 0.45); border-color: rgba(168, 85, 247, 0.6); }
+        .orange-glow-btn { transition: all 0.3s ease; border: 1px solid rgba(249, 115, 22, 0.4); background: rgba(249, 115, 22, 0.1); color: #f97316; }
+        .orange-glow-btn:hover { background: #f97316; color: #ffffff; box-shadow: 0 0 25px rgba(249, 115, 22, 0.8); border-color: #f97316; transform: translateY(-2px); }
+    </style>
+</head>
+<body class="bg-arise-base text-white font-sans antialiased min-h-screen">
+
+    <div class="bg-purple-950/90 border-b border-purple-800/40 text-center py-2.5 px-4 text-xs md:text-sm font-heading font-bold text-purple-300 tracking-wider animate-pulse sticky top-0 z-50">
+        ⚡ ARISE SMP — A Premium Server Experience ⚡
+    </div>
+
+    <nav class="bg-arise-base/90 backdrop-blur-md border-b border-purple-900/30 sticky top-[37px] z-40">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center space-x-3">
+                <img src="./logo.png" alt="Logo" class="h-10 w-10 object-contain" onerror="this.style.display='none'">
+                <span class="font-heading text-2xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-300">ARISE SMP</span>
+            </a>
+            <div class="hidden md:flex space-x-6 font-heading text-lg tracking-wide text-gray-300 items-center">
+                <a href="/" class="hover:text-purple-400 transition">Home</a>
+                <a href="/ranks" class="orange-glow-btn px-4 py-2 rounded-xl font-bold text-sm">Store Ranks</a>
+                <a href="/console" class="hover:text-purple-400 transition">ARISE AI</a>
+                <a href="/rules" class="orange-glow-btn px-4 py-2 rounded-xl font-bold text-sm">Rules</a>
+                <a href="/appeal" class="orange-glow-btn px-4 py-2 rounded-xl font-bold text-sm">Ban Appeal</a>
+            </div>
+            <a href="https://discord.gg/arisesmp" target="_blank" class="orange-glow-btn px-5 py-2.5 rounded-xl font-heading font-bold text-sm transition animate-pulse">
+                💬 Discord
+            </a>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-8 py-16">
+        <div class="text-center mb-12">
+            <h1 class="font-heading text-5xl font-extrabold uppercase mb-3">God-Tier <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400">Server Store</span></h1>
+            <p class="text-gray-400">Click on any rank below to open its dedicated kit specifications and checkout page.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Rookie -->
+            <div onclick="window.location.href='/rank-view?rank=rookie'" class="glow-box rounded-2xl p-8 cursor-pointer flex flex-col justify-between">
+                <div>
+                    <h3 class="font-heading text-3xl font-bold mb-2 text-purple-300">1. ROOKIE</h3>
+                    <div class="text-4xl font-heading font-extrabold mb-4 text-emerald-400">₹49 <span class="text-sm font-normal text-gray-500">/ lifetime</span></div>
+                    <p class="text-gray-400 text-sm mb-6">Diamond armour tools mending and unbreaking enchant only 15 diamonds 64 cooper ingot 64 cookies 15 gaps 2 enchanted gaps.</p>
+                </div>
+                <span class="orange-glow-btn py-3 rounded-xl font-heading font-bold text-center block">View Kit Details →</span>
+            </div>
+            <!-- Warrior -->
+            <div onclick="window.location.href='/rank-view?rank=warrior'" class="glow-box rounded-2xl p-8 cursor-pointer flex flex-col justify-between">
+                <div>
+                    <h3 class="font-heading text-3xl font-bold mb-2 text-indigo-300">2. WARRIOR</h3>
+                    <div class="text-4xl font-heading font-extrabold mb-4 text-emerald-400">₹99 <span class="text-sm font-normal text-gray-500">/ lifetime</span></div>
+                    <p class="text-gray-400 text-sm mb-6">Max diamond armour tool, 32 diamonds 64 cooper ingot 64 cookies 15 gaps 5 egaps 2 dune trim.</p>
+                </div>
+                <span class="orange-glow-btn py-3 rounded-xl font-heading font-bold text-center block">View Kit Details →</span>
+            </div>
+            <!-- Knight -->
+            <div onclick="window.location.href='/rank-view?rank=knight'" class="glow-box rounded-2xl p-8 cursor-pointer flex flex-col justify-between">
+                <div>
+                    <h3 class="font-heading text-3xl font-bold mb-2 text-fuchsia-300">3. KNIGHT</h3>
+                    <div class="text-4xl font-heading font-extrabold mb-4 text-emerald-400">₹169 <span class="text-sm font-normal text-gray-500">/ lifetime</span></div>
+                    <p class="text-gray-400 text-sm mb-6">Mending and unbreaking nethrite armour and tools not enchanted, 42 diamonds 64 coppers 64 cookies 30 gaps 8 egaps 2 wax trim.</p>
+                </div>
+                <span class="orange-glow-btn py-3 rounded-xl font-heading font-bold text-center block">View Kit Details →</span>
+            </div>
+            <!-- Elite -->
+            <div onclick="window.location.href='/rank-view?rank=elite'" class="glow-box rounded-2xl p-8 cursor-pointer flex flex-col justify-between">
+                <div>
+                    <h3 class="font-heading text-3xl font-bold mb-2 text-purple-400">4. ELITE</h3>
+                    <div class="text-4xl font-heading font-extrabold mb-4 text-emerald-400">₹259 <span class="text-sm font-normal text-gray-500">/ lifetime</span></div>
+                    <p class="text-gray-400 text-sm mb-6">Mending and unbreakable enchanted neth armour tools, 50 diamonds 64 copper 64 cookies 2 neth ingot 32 gaps 10 egaps 2 silence trim.</p>
+                </div>
+                <span class="orange-glow-btn py-3 rounded-xl font-heading font-bold text-center block">View Kit Details →</span>
+            </div>
+            <!-- Legend -->
+            <div onclick="window.location.href='/rank-view?rank=legend'" class="glow-box rounded-2xl p-8 cursor-pointer flex flex-col justify-between">
+                <div>
+                    <h3 class="font-heading text-3xl font-bold mb-2 text-yellow-400">5. LEGEND</h3>
+                    <div class="text-4xl font-heading font-extrabold mb-4 text-emerald-400">₹299 <span class="text-sm font-normal text-gray-500">/ lifetime</span></div>
+                    <p class="text-gray-400 text-sm mb-6">Max nethrite armour tool 64 diamonds 64 copper 64 cookies 4 neth ingot 32 gaps 15 egaps 2 silence trim 2 dune trim mace wb-3.</p>
+                </div>
+                <span class="orange-glow-btn py-3 rounded-xl font-heading font-bold text-center block">View Kit Details →</span>
+            </div>
+            <!-- Immortal -->
+            <div onclick="window.location.href='/rank-view?rank=immortal'" class="glow-box rounded-2xl p-8 cursor-pointer flex flex-col justify-between border-purple-500">
+                <div>
+                    <h3 class="font-heading text-3xl font-bold mb-2 text-red-400">6. IMMORTAL</h3>
+                    <div class="text-4xl font-heading font-extrabold mb-4 text-emerald-400">₹359 <span class="text-sm font-normal text-gray-500">/ lifetime</span></div>
+                    <p class="text-gray-400 text-sm mb-6">Max neth armour tool 64 diamonds 64 copper 64 gaps 20 egaps 4 silence trim 2 dune armour trim 1 mace wb-3 elytra.</p>
+                </div>
+                <span class="orange-glow-btn py-3 rounded-xl font-heading font-bold text-center block">View Kit Details →</span>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

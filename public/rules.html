@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARISE SMP | Server Rules</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { arise: { base: '#07040f', card: '#110b22', purple: '#8b5cf6', glow: '#a855f7' } },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Rajdhani', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glow-box { background: linear-gradient(135deg, rgba(25, 15, 48, 0.9) 0%, rgba(12, 7, 24, 0.95) 100%); border: 1px solid rgba(168, 85, 247, 0.25); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .orange-glow-btn { transition: all 0.3s ease; border: 1px solid rgba(249, 115, 22, 0.4); background: rgba(249, 115, 22, 0.1); color: #f97316; }
+        .orange-glow-btn:hover { background: #f97316; color: #ffffff; box-shadow: 0 0 25px rgba(249, 115, 22, 0.8); border-color: #f97316; transform: translateY(-2px); }
+    </style>
+</head>
+<body class="bg-arise-base text-white font-sans antialiased min-h-screen">
+
+    <div class="bg-purple-950/90 border-b border-purple-800/40 text-center py-2.5 px-4 text-xs md:text-sm font-heading font-bold text-purple-300 tracking-wider animate-pulse sticky top-0 z-50">
+        ⚡ ARISE SMP — A Premium Server Experience ⚡
+    </div>
+
+    <nav class="bg-arise-base/90 backdrop-blur-md border-b border-purple-900/30 sticky top-[37px] z-40">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center space-x-3">
+                <img src="./logo.png" alt="Logo" class="h-10 w-10 object-contain" onerror="this.style.display='none'">
+                <span class="font-heading text-2xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-300">ARISE SMP</span>
+            </a>
+            <div class="hidden md:flex space-x-6 font-heading text-lg tracking-wide text-gray-300 items-center">
+                <a href="/" class="hover:text-purple-400 transition">Home</a>
+                <a href="/ranks" class="orange-glow-btn px-4 py-2 rounded-xl font-bold text-sm">Store Ranks</a>
+                <a href="/console" class="hover:text-purple-400 transition">ARISE AI</a>
+                <a href="/rules" class="text-purple-400 font-semibold">Rules</a>
+                <a href="/appeal" class="orange-glow-btn px-4 py-2 rounded-xl font-bold text-sm">Ban Appeal</a>
+            </div>
+            <a href="https://discord.gg/arisesmp" target="_blank" class="orange-glow-btn px-5 py-2.5 rounded-xl font-heading font-bold text-sm transition animate-pulse">
+                💬 Discord
+            </a>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-8 py-16 space-y-8">
+        <div class="text-center mb-10">
+            <h1 class="font-heading text-4xl md:text-5xl font-extrabold uppercase mb-2">⚔️ ARISE SMP – <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-400">Server Rules</span></h1>
+            <p class="text-gray-400 text-sm">Welcome to ARISE SMP! 🌌 To ensure a fair and enjoyable experience, every player must follow these rules.</p>
+        </div>
+
+        <!-- General Rules -->
+        <div class="glow-box rounded-2xl p-6 border-l-4 border-purple-500">
+            <h3 class="font-heading text-2xl font-bold text-purple-300 mb-4">📜 General Rules</h3>
+            <ul class="space-y-3 text-gray-300 text-sm">
+                <li>🛡️ <b>Respect Everyone</b> – No harassment, hate speech, or discrimination.</li>
+                <li>💬 <b>Keep Chat Clean</b> – No excessive spam or inappropriate content.</li>
+                <li>🎭 <b>No Impersonation</b> – Do not impersonate staff or other players.</li>
+            </ul>
+        </div>
+
+        <!-- Gameplay Rules -->
+        <div class="glow-box rounded-2xl p-6 border-l-4 border-red-500">
+            <h3 class="font-heading text-2xl font-bold text-red-400 mb-4">⚔️ Gameplay Rules</h3>
+            <ul class="space-y-3 text-gray-300 text-sm">
+                <li>🚫 <b>No Hacks or Cheats</b> – Hacked clients, X-Ray, auto-clickers, macros, scripts, exploits, or any unfair advantage are strictly prohibited.</li>
+                <li>🎮 <b>No Bug Abuse</b> – Exploiting glitches, dupes, or unintended mechanics is not allowed.</li>
+                <li>🏕️ <b>No Spawn Griefing</b> – Do not grief or trap protected spawn areas.</li>
+            </ul>
+        </div>
+
+        <!-- Building Rules -->
+        <div class="glow-box rounded-2xl p-6 border-l-4 border-emerald-500">
+            <h3 class="font-heading text-2xl font-bold text-emerald-400 mb-4">🏠 Building Rules</h3>
+            <ul class="space-y-3 text-gray-300 text-sm">
+                <li>🏗️ <b>Respect Player Builds</b> unless server mechanics explicitly allow otherwise.</li>
+                <li>🔥 <b>No Lag Machines</b> or builds designed to intentionally reduce server performance.</li>
+            </ul>
+        </div>
+
+        <!-- Economy & Scamming Policy -->
+        <div class="glow-box rounded-2xl p-6 border-l-4 border-yellow-500">
+            <h3 class="font-heading text-2xl font-bold text-yellow-400 mb-4">💰 Economy & Scamming Policy</h3>
+            <ul class="space-y-3 text-gray-300 text-sm">
+                <li>💸 <b>Scamming is ALLOWED</b> at your own risk.</li>
+                <li>⚠️ <b>ARISE SMP Staff will NOT refund</b> items, money, or valuables lost through scams, trades, giveaways, or player-to-player deals.</li>
+                <li>🤝 <b>Trade carefully.</b> Double-check every deal before accepting. Once a trade is completed, it is considered final.</li>
+                <li>🚫 <b>Real-money scams</b>, account theft, phishing, or attempts to steal accounts are strictly forbidden and will result in a permanent ban.</li>
+            </ul>
+        </div>
+
+        <!-- Community & Staff -->
+        <div class="glow-box rounded-2xl p-6 border-l-4 border-blue-500">
+            <h3 class="font-heading text-2xl font-bold text-blue-400 mb-4">👥 Community & Staff Decisions</h3>
+            <ul class="space-y-3 text-gray-300 text-sm">
+                <li>📢 <b>No advertising</b> other servers or Discords without permission.</li>
+                <li>🎉 <b>Help keep</b> the community friendly and enjoyable.</li>
+                <li>⚖️ <b>Respect staff decisions.</b> If you believe a punishment was unfair, open a support ticket instead of arguing in chat.</li>
+            </ul>
+        </div>
+
+        <!-- Punishments -->
+        <div class="glow-box rounded-2xl p-6 border-l-4 border-orange-500">
+            <h3 class="font-heading text-2xl font-bold text-orange-400 mb-4">🚨 Punishments</h3>
+            <p class="text-gray-300 text-sm mb-3">Rule violations may result in:</p>
+            <ul class="space-y-2 text-gray-300 text-sm">
+                <li>• 🟡 Warning</li>
+                <li>• 🟠 Temporary Mute</li>
+                <li>• 🔴 Temporary Ban</li>
+                <li>• ⛔ Permanent Ban</li>
+            </ul>
+        </div>
+
+        <div class="text-center font-heading text-xl font-bold text-purple-300 pt-4">
+            ✨ Trade wisely. Play fairly. Rise stronger. Welcome to ARISE SMP!
+        </div>
+    </main>
+</body>
+</html>

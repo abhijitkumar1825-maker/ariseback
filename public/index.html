@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARISE SMP | Home</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { arise: { dark: '#000000', surface: '#050505', aura: '#7e22ce' } },
+                    fontFamily: { sans: ['Inter', 'sans-serif'], heading: ['Rajdhani', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #000000; color: #ffffff; }
+        
+        /* Premium Solid Black & Purple Aura Theme */
+        .theme-box { 
+            background-color: #050505; 
+            border: 1px solid #2e1065; 
+            box-shadow: 0 0 20px rgba(88, 28, 135, 0.15); 
+            transition: all 0.3s ease; 
+        }
+        .theme-box:hover { 
+            border-color: #9333ea; 
+            box-shadow: 0 0 35px rgba(147, 51, 234, 0.35); 
+            transform: translateY(-4px); 
+        }
+        
+        /* Intense Purple Aura Button */
+        .theme-btn { 
+            background: linear-gradient(135deg, #4c1d95 0%, #9333ea 100%); 
+            color: #ffffff; 
+            transition: all 0.3s ease; 
+            border: 1px solid #a855f7;
+            box-shadow: 0 0 15px rgba(147, 51, 234, 0.25);
+        }
+        .theme-btn:hover { 
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.6); 
+            transform: translateY(-2px); 
+            filter: brightness(1.1); 
+        }
+        
+        .theme-btn-outline { 
+            background: transparent; 
+            border: 1px solid #6b21a8; 
+            color: #ffffff; 
+            transition: all 0.3s ease; 
+        }
+        .theme-btn-outline:hover { 
+            border-color: #a855f7; 
+            background: rgba(147, 51, 234, 0.1); 
+            box-shadow: 0 0 20px rgba(147, 51, 234, 0.2);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-screen">
+
+    <div class="bg-[#050505] border-b border-[#2e1065] text-center py-2.5 px-4 text-xs md:text-sm font-heading font-bold text-[#c084fc] tracking-wider animate-pulse">
+        ⚡ ARISE SMP — A Premium Server Experience ⚡
+    </div>
+
+    <nav class="bg-[#000000]/90 backdrop-blur-md border-b border-[#2e1065] sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="/" class="flex items-center space-x-3">
+                <img src="./logo.png" alt="Logo" class="h-10 w-10 object-contain" onerror="this.style.display='none'">
+                <span class="font-heading text-2xl font-bold tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-[#c084fc] to-[#e879f9]">ARISE SMP</span>
+            </a>
+            <div class="hidden md:flex space-x-6 font-heading text-lg tracking-wide text-gray-400 items-center">
+                <a href="/" class="text-white font-semibold drop-shadow-[0_0_8px_rgba(192,132,252,0.5)]">Home</a>
+                <a href="/ranks" class="hover:text-[#c084fc] transition">Store Ranks</a>
+                <a href="/console" class="hover:text-[#c084fc] transition">ARISE AI</a>
+                <a href="/rules" class="hover:text-[#c084fc] transition">Rules</a>
+                <a href="/appeal" class="hover:text-[#c084fc] transition">Ban Appeal</a>
+            </div>
+            <a href="https://discord.gg/VV3n28DuyN" target="_blank" class="theme-btn px-5 py-2.5 rounded-full font-heading font-bold text-sm">
+                💬 Join Discord
+            </a>
+        </div>
+    </nav>
+
+    <main class="max-w-6xl mx-auto px-8 py-16">
+        <div class="theme-box rounded-3xl p-12 mb-12 text-center relative overflow-hidden">
+            <h1 class="font-heading text-5xl md:text-7xl font-extrabold mb-6 uppercase tracking-tight text-white">
+                Welcome to <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#9333ea] to-[#d8b4fe] drop-shadow-[0_0_15px_rgba(147,51,234,0.4)]">ARISE SMP</span>
+            </h1>
+            <p class="text-gray-300 text-lg max-w-2xl mx-auto mb-8">
+                The ultimate competitive Minecraft server featuring high-performance Crystal & Sword PvP, zero lag, advanced security, and legendary combat kits. Connect now at <span class="text-[#c084fc] font-mono font-bold">arisesmp.qzz.io</span>.
+            </p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="/ranks" class="theme-btn px-8 py-4 rounded-full font-heading font-bold text-lg">Server Store 💎</a>
+                <button onclick="navigator.clipboard.writeText('arisesmp.qzz.io'); alert('Server IP arisesmp.qzz.io copied to clipboard!');" class="theme-btn-outline px-8 py-4 rounded-full font-heading font-bold text-lg">Copy IP</button>
+            </div>
+        </div>
+
+        <section class="mb-16">
+            <div class="text-center mb-8">
+                <h2 class="font-heading text-3xl font-bold mb-2 text-white">Live Server Telemetry</h2>
+                <p class="text-gray-400 text-sm">Accurately monitored in real-time.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="theme-box p-6 rounded-2xl text-center">
+                    <div class="text-gray-400 font-medium mb-1 text-sm uppercase tracking-wider">Server Status</div>
+                    <div id="server-status-text" class="text-xl font-heading font-bold text-[#c084fc] flex items-center justify-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-[#c084fc] animate-ping"></span> Checking...
+                    </div>
+                </div>
+                <div class="theme-box p-6 rounded-2xl text-center">
+                    <div class="text-gray-400 font-medium mb-1 text-sm uppercase tracking-wider">Active Combatants</div>
+                    <div id="player-count" class="text-3xl font-heading font-extrabold text-white">-- / --</div>
+                </div>
+                <div class="theme-box p-6 rounded-2xl text-center">
+                    <div class="text-gray-400 font-medium mb-1 text-sm uppercase tracking-wider">Quick Connect IP</div>
+                    <div onclick="navigator.clipboard.writeText('arisesmp.qzz.io'); alert('Server IP Copied!');" class="text-lg font-heading font-bold text-[#d8b4fe] cursor-pointer hover:text-white transition font-mono mt-1">
+                        arisesmp.qzz.io 📋
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="theme-box rounded-2xl p-6">
+                <div class="text-white font-heading text-lg font-bold mb-2 flex items-center gap-2">
+                    <span class="text-[#c084fc]">⚔️</span> High-Tier PvP
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed">Pristine hit registration, specialized crystal/anchor combat mechanics, and optimized tick performance.</p>
+            </div>
+            
+            <div class="theme-box rounded-2xl p-6">
+                <div class="text-white font-heading text-lg font-bold mb-2 flex items-center gap-2">
+                    <span class="text-[#c084fc]">⚡</span> Lightning Fast
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed">Optimized for speed to boost server performance and provide a true zero-lag experience.</p>
+            </div>
+
+            <div class="theme-box rounded-2xl p-6">
+                <div class="text-white font-heading text-lg font-bold mb-2 flex items-center gap-2">
+                    <span class="text-[#c084fc]">🛡️</span> Secure & Reliable
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed">Built with the best anti-cheat practices for top-tier security and automated player moderation.</p>
+            </div>
+
+            <div class="theme-box rounded-2xl p-6">
+                <div class="text-white font-heading text-lg font-bold mb-2 flex items-center gap-2">
+                    <span class="text-[#c084fc]">💎</span> God-Tier Perks
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed">Fair economy balanced with glowing aura cosmetics, specialized armor kits, and permanent rank perks.</p>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        async function fetchServerStatus() {
+            try {
+                const res = await fetch('https://api.mcsrvstat.us/2/arisesmp.qzz.io');
+                const data = await res.json();
+                const statusText = document.getElementById('server-status-text');
+                const playerCount = document.getElementById('player-count');
+                if (data.online) {
+                    statusText.innerHTML = '<span class="w-3 h-3 rounded-full bg-[#c084fc]"></span> Online';
+                    playerCount.innerText = `${data.players.online} / ${data.players.max}`;
+                } else {
+                    statusText.innerHTML = '<span class="w-3 h-3 rounded-full bg-red-500"></span> Offline';
+                    playerCount.innerText = '0 / 0';
+                }
+            } catch (e) {
+                console.error(e);
+            }
+        }
+        fetchServerStatus();
+        setInterval(fetchServerStatus, 15000);
+    </script>
+</body>
+</html>
