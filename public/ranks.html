@@ -4,340 +4,129 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARISE SMP | Rank Store</title>
-    <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Rajdhani:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <style>
-        body { 
-            background-color: #030005; 
-            color: #ffffff; 
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-        }
+        body { background-color: #030005; color: #ffffff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
         h1, h2, h3, .font-heading { font-family: 'Rajdhani', sans-serif; }
-        
-        .aura-border {
-            border: 1px solid rgba(147, 51, 234, 0.3);
-            box-shadow: 0 0 15px rgba(88, 28, 135, 0.2);
-        }
-        
-        .nav-item {
+        .aura-border { border: 1px solid rgba(147, 51, 234, 0.4); box-shadow: 0 0 20px rgba(147, 51, 234, 0.25); transition: all 0.3s ease; }
+        .nav-item { transition: all 0.3s ease; }
+        .nav-item:hover { background: linear-gradient(90deg, rgba(147, 51, 234, 0.2) 0%, transparent 100%); border-left: 4px solid #a855f7; color: #d8b4fe; }
+        .rank-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; background: #050505; }
+        .rank-card:hover { transform: translateY(-8px); border-color: #a855f7; box-shadow: 0 0 35px rgba(168, 85, 247, 0.4); }
+        .rank-card.active { border-color: #c084fc; background: linear-gradient(180deg, #110524 0%, #050505 100%); box-shadow: 0 0 40px rgba(168, 85, 247, 0.6); }
+        .buy-btn-glow {
+            background: linear-gradient(135deg, #4c1d95 0%, #9333ea 50%, #c084fc 100%);
+            border: 1px solid #d8b4fe;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
             transition: all 0.3s ease;
         }
-        .nav-item:hover {
-            background: linear-gradient(90deg, rgba(147, 51, 234, 0.2) 0%, transparent 100%);
-            border-left: 4px solid #a855f7;
-            color: #d8b4fe;
-            text-shadow: 0 0 8px rgba(168, 85, 247, 0.8);
-        }
-        
-        .rank-card {
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            background: #050505;
-        }
-        .rank-card:hover {
-            transform: translateY(-8px);
-            border-color: #a855f7;
-            box-shadow: 0 0 35px rgba(168, 85, 247, 0.4);
-        }
-        .rank-card.active {
-            border-color: #c084fc;
-            background: linear-gradient(180deg, #110524 0%, #050505 100%);
-            box-shadow: 0 0 40px rgba(168, 85, 247, 0.6);
-        }
-
-        .action-btn {
-            background: linear-gradient(135deg, #4c1d95 0%, #7e22ce 100%);
-            border: 1px solid #9333ea;
-            transition: all 0.3s ease;
-        }
-        .action-btn:hover {
-            box-shadow: 0 0 25px rgba(168, 85, 247, 0.8);
-            filter: brightness(1.2);
-            transform: scale(1.02);
-        }
-
+        .buy-btn-glow:hover { transform: scale(1.03); box-shadow: 0 0 35px rgba(216, 180, 254, 0.9), inset 0 0 15px rgba(255, 255, 255, 0.4); filter: brightness(1.15); }
         .sidebar { transition: transform 0.4s ease-in-out; z-index: 50; }
-        @media (max-width: 768px) {
-            .sidebar-hidden { transform: translateX(-100%); }
-        }
-
-        /* Smooth fade transition for kit inspector */
-        .fade-in {
-            animation: fadeIn 0.4s ease-in;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @media (max-width: 768px) { .sidebar-hidden { transform: translateX(-100%); } }
     </style>
 </head>
 <body class="flex">
 
-    <!-- Mobile Navigation Toggle Button -->
-    <button onclick="toggleSidebar()" class="md:hidden fixed top-4 right-4 z-[60] bg-[#0a0a0a] border border-purple-600 text-white p-3 rounded-lg shadow-[0_0_15px_rgba(147,51,234,0.4)]">
-        <i class="fas fa-bars text-xl"></i>
-    </button>
+    <button onclick="toggleSidebar()" class="md:hidden fixed top-4 right-4 z-[60] bg-[#0a0a0a] border border-purple-600 text-white p-3 rounded-lg"><i class="fas fa-bars text-xl"></i></button>
 
-    <!-- Side Navigation Bar -->
-    <aside id="sidebar" class="sidebar sidebar-hidden md:transform-none fixed top-0 left-0 w-64 h-screen bg-[#050505] border-r border-[#2e1065] flex flex-col shadow-[10px_0_30px_rgba(0,0,0,0.8)]">
+    <aside id="sidebar" class="sidebar sidebar-hidden md:transform-none fixed top-0 left-0 w-64 h-screen bg-[#050505] border-r border-[#2e1065] flex flex-col shadow-2xl">
         <div class="p-8 text-center border-b border-[#2e1065]">
-            <img src="./logo.png" alt="ARISE Logo" class="w-24 h-24 mx-auto mb-3 object-contain drop-shadow-[0_0_15px_rgba(147,51,234,0.5)]" onerror="this.style.display='none'">
+            <img src="./logo.png" alt="ARISE Logo" class="w-20 h-20 mx-auto mb-2 object-contain drop-shadow-[0_0_15px_rgba(147,51,234,0.5)]" onerror="this.style.display='none'">
             <h2 class="font-heading text-3xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-[#c084fc] to-[#e879f9]">ARISE</h2>
-            <p class="text-xs text-gray-400 tracking-widest uppercase">Network</p>
         </div>
-
         <nav class="flex-1 px-4 py-6 space-y-2">
-            <a href="/" class="nav-item flex items-center space-x-4 px-4 py-3 text-gray-300 rounded-lg">
-                <i class="fas fa-home w-5 text-center text-[#c084fc]"></i>
-                <span class="font-semibold tracking-wide">Home</span>
-            </a>
-            <a href="/ranks" class="nav-item flex items-center space-x-4 px-4 py-3 text-gray-300 rounded-lg bg-[#110524] border-l-4 border-purple-500">
-                <i class="fas fa-shopping-cart w-5 text-center text-[#c084fc]"></i>
-                <span class="font-semibold tracking-wide">Rank Store</span>
-            </a>
-            <a href="/console" class="nav-item flex items-center space-x-4 px-4 py-3 text-gray-300 rounded-lg">
-                <i class="fas fa-robot w-5 text-center text-[#c084fc]"></i>
-                <span class="font-semibold tracking-wide">Ask AI</span>
-            </a>
-            <a href="/rules" class="nav-item flex items-center space-x-4 px-4 py-3 text-gray-300 rounded-lg">
-                <i class="fas fa-book w-5 text-center text-[#c084fc]"></i>
-                <span class="font-semibold tracking-wide">Rules</span>
-            </a>
-            <a href="/appeal" class="nav-item flex items-center space-x-4 px-4 py-3 text-gray-300 rounded-lg">
-                <i class="fas fa-gavel w-5 text-center text-[#c084fc]"></i>
-                <span class="font-semibold tracking-wide">Ban Appeal</span>
-            </a>
+            <a href="/" class="nav-item flex items-center space-x-4 px-4 py-3 text-gray-300 rounded-lg"><i class="fas fa-home w-5 text-center text-[#c084fc]"></i><span class="font-semibold">Home</span></a>
+            <a href="/ranks" class="nav-item flex items-center space-x-4 px-4 py-3 text-gray-300 rounded-lg bg-[#110524] border-l-4 border-purple-500"><i class="fas fa-shopping-cart w-5 text-center text-[#c084fc]"></i><span class="font-semibold">Rank Store</span></a>
+            <a href="/console" class="nav-item flex items-center space-x-4 px-4 py-3 text-gray-300 rounded-lg"><i class="fas fa-robot w-5 text-center text-[#c084fc]"></i><span class="font-semibold">Ask AI</span></a>
+            <a href="/rules" class="nav-item flex items-center space-x-4 px-4 py-3 text-gray-300 rounded-lg"><i class="fas fa-book w-5 text-center text-[#c084fc]"></i><span class="font-semibold">Rules</span></a>
+            <a href="/appeal" class="nav-item flex items-center space-x-4 px-4 py-3 text-gray-300 rounded-lg"><i class="fas fa-gavel w-5 text-center text-[#c084fc]"></i><span class="font-semibold">Ban Appeal</span></a>
         </nav>
-
         <div class="p-6 border-t border-[#2e1065] text-center space-x-4">
-            <a href="https://discord.gg/VV3n28DuyN" target="_blank" class="text-gray-400 hover:text-[#5865F2] transition text-2xl drop-shadow-[0_0_5px_currentColor]"><i class="fab fa-discord"></i></a>
-            <a href="#" class="text-gray-400 hover:text-[#FF0000] transition text-2xl drop-shadow-[0_0_5px_currentColor]"><i class="fab fa-youtube"></i></a>
+            <a href="https://discord.gg/VV3n28DuyN" target="_blank" class="text-gray-400 hover:text-[#5865F2] text-xl"><i class="fab fa-discord"></i></a>
+            <a href="https://youtube.com/@harshalgamer272-c2n?si=KBJQ8--yi3ZANgOw" target="_blank" class="text-gray-400 hover:text-[#FF0000] text-xl"><i class="fab fa-youtube"></i></a>
         </div>
     </aside>
 
-    <!-- Main Content Area -->
-    <main class="flex-1 md:ml-64 min-h-screen relative p-6 md:p-12">
+    <main class="flex-1 md:ml-64 min-h-screen p-6 md:p-12 relative z-10">
         <div class="max-w-6xl mx-auto">
-            
             <div class="text-center mb-12">
                 <h1 class="text-4xl md:text-6xl font-extrabold uppercase mb-3">ARISE <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#a855f7] to-[#d8b4fe]">Rank Store</span></h1>
-                <p class="text-gray-400 text-sm md:text-base">Click any rank below to instantly view its pricing, custom kits, and features.</p>
+                <p class="text-gray-400 text-sm">Click any rank below to instantly view its pricing, custom kits, and features.</p>
             </div>
 
-            <!-- 6 Rank Selection Cards (Responsive Grid) -->
             <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 mb-12">
-                
-                <div onclick="selectRank('rookie')" id="card-rookie" class="rank-card active aura-border rounded-2xl p-4 md:p-6 text-center border">
-                    <i class="fas fa-shield-alt text-3xl md:text-4xl text-gray-400 mb-3 drop-shadow-[0_0_10px_rgba(156,163,175,0.5)]"></i>
-                    <h3 class="text-xl md:text-2xl font-bold uppercase text-white tracking-wider">ROOKIE</h3>
-                </div>
-
-                <div onclick="selectRank('warrior')" id="card-warrior" class="rank-card aura-border rounded-2xl p-4 md:p-6 text-center border">
-                    <i class="fas fa-khanda text-3xl md:text-4xl text-blue-400 mb-3 drop-shadow-[0_0_10px_rgba(96,165,250,0.5)]"></i>
-                    <h3 class="text-xl md:text-2xl font-bold uppercase text-white tracking-wider">WARRIOR</h3>
-                </div>
-
-                <div onclick="selectRank('knight')" id="card-knight" class="rank-card aura-border rounded-2xl p-4 md:p-6 text-center border">
-                    <i class="fas fa-horse-head text-3xl md:text-4xl text-purple-400 mb-3 drop-shadow-[0_0_10px_rgba(192,132,252,0.5)]"></i>
-                    <h3 class="text-xl md:text-2xl font-bold uppercase text-white tracking-wider">KNIGHT</h3>
-                </div>
-
-                <div onclick="selectRank('elite')" id="card-elite" class="rank-card aura-border rounded-2xl p-4 md:p-6 text-center border">
-                    <i class="fas fa-bolt text-3xl md:text-4xl text-yellow-400 mb-3 drop-shadow-[0_0_10px_rgba(250,204,21,0.5)]"></i>
-                    <h3 class="text-xl md:text-2xl font-bold uppercase text-white tracking-wider">ELITE</h3>
-                </div>
-
-                <div onclick="selectRank('legend')" id="card-legend" class="rank-card aura-border rounded-2xl p-4 md:p-6 text-center border">
-                    <i class="fas fa-fire text-3xl md:text-4xl text-orange-500 mb-3 drop-shadow-[0_0_10px_rgba(249,115,22,0.5)]"></i>
-                    <h3 class="text-xl md:text-2xl font-bold uppercase text-white tracking-wider">LEGEND</h3>
-                </div>
-
-                <div onclick="selectRank('immortal')" id="card-immortal" class="rank-card aura-border rounded-2xl p-4 md:p-6 text-center border">
-                    <i class="fas fa-dragon text-3xl md:text-4xl text-red-500 mb-3 drop-shadow-[0_0_10px_rgba(239,68,68,0.5)]"></i>
-                    <h3 class="text-xl md:text-2xl font-bold uppercase text-white tracking-wider">IMMORTAL</h3>
-                </div>
-
+                <div onclick="selectRank('rookie')" id="card-rookie" class="rank-card active aura-border rounded-2xl p-4 text-center"><i class="fas fa-shield-alt text-3xl text-gray-400 mb-2"></i><h3 class="text-xl font-bold uppercase text-white">ROOKIE</h3></div>
+                <div onclick="selectRank('warrior')" id="card-warrior" class="rank-card aura-border rounded-2xl p-4 text-center"><i class="fas fa-khanda text-3xl text-blue-400 mb-2"></i><h3 class="text-xl font-bold uppercase text-white">WARRIOR</h3></div>
+                <div onclick="selectRank('knight')" id="card-knight" class="rank-card aura-border rounded-2xl p-4 text-center"><i class="fas fa-horse-head text-3xl text-purple-400 mb-2"></i><h3 class="text-xl font-bold uppercase text-white">KNIGHT</h3></div>
+                <div onclick="selectRank('elite')" id="card-elite" class="rank-card aura-border rounded-2xl p-4 text-center"><i class="fas fa-bolt text-3xl text-yellow-400 mb-2"></i><h3 class="text-xl font-bold uppercase text-white">ELITE</h3></div>
+                <div onclick="selectRank('legend')" id="card-legend" class="rank-card aura-border rounded-2xl p-4 text-center"><i class="fas fa-fire text-3xl text-orange-500 mb-2"></i><h3 class="text-xl font-bold uppercase text-white">LEGEND</h3></div>
+                <div onclick="selectRank('immortal')" id="card-immortal" class="rank-card aura-border rounded-2xl p-4 text-center"><i class="fas fa-dragon text-3xl text-red-500 mb-2"></i><h3 class="text-xl font-bold uppercase text-white">IMMORTAL</h3></div>
             </div>
 
-            <!-- Dynamic Kit Inspector Display -->
-            <div id="inspector-panel" class="bg-[#050505] aura-border rounded-3xl p-8 md:p-10 border border-purple-900/50 shadow-[0_0_50px_rgba(0,0,0,0.9)]">
-                
+            <div id="inspector-panel" class="bg-[#050505] aura-border rounded-3xl p-8 md:p-10 shadow-2xl">
                 <div class="flex flex-col md:flex-row justify-between items-center border-b border-[#2e1065] pb-6 mb-6">
                     <div>
-                        <h2 id="kit-title" class="text-3xl font-bold uppercase text-purple-300 tracking-wider"></h2>
+                        <h2 id="kit-title" class="text-3xl font-bold uppercase text-purple-300"></h2>
                         <p class="text-gray-400 text-sm mt-1">Included items, resources, and custom trims.</p>
                     </div>
                     <div class="mt-6 md:mt-0 text-center md:text-right">
-                        <span id="kit-price" class="text-4xl font-extrabold text-white tracking-wider drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]"></span>
-                        <a id="buy-btn" href="https://discord.gg/VV3n28DuyN" target="_blank" class="action-btn block mt-3 px-8 py-3 rounded-xl font-bold text-white uppercase tracking-wider text-center">
+                        <span id="kit-price" class="text-4xl font-extrabold text-white"></span>
+                        <a id="buy-btn" href="https://discord.gg/VV3n28DuyN" target="_blank" class="buy-btn-glow block mt-3 px-8 py-3 rounded-xl font-bold text-white uppercase text-center">
                             🛒 Purchase via Discord
                         </a>
                     </div>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
-                        <h4 class="text-lg font-bold text-white mb-4 uppercase flex items-center tracking-wider">
-                            <i class="fas fa-box-open text-purple-400 mr-3"></i> Exclusive Kit Items
-                        </h4>
-                        <ul id="kit-items" class="space-y-3 text-sm text-gray-300 font-mono">
-                            <!-- Populated dynamically via JS -->
-                        </ul>
+                        <h4 class="text-lg font-bold text-white mb-4 uppercase flex items-center"><i class="fas fa-box-open text-purple-400 mr-3"></i> Exclusive Kit Items</h4>
+                        <ul id="kit-items" class="space-y-3 text-sm text-gray-300 font-mono"></ul>
                     </div>
-
                     <div>
-                        <h4 class="text-lg font-bold text-white mb-4 uppercase flex items-center tracking-wider">
-                            <i class="fas fa-gem text-yellow-400 mr-3"></i> Resources & Trims
-                        </h4>
-                        <ul id="kit-perks" class="space-y-3 text-sm text-gray-300 font-mono">
-                            <!-- Populated dynamically via JS -->
-                        </ul>
+                        <h4 class="text-lg font-bold text-white mb-4 uppercase flex items-center"><i class="fas fa-gem text-yellow-400 mr-3"></i> Resources & Trims</h4>
+                        <ul id="kit-perks" class="space-y-3 text-sm text-gray-300 font-mono"></ul>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </main>
 
     <script>
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('sidebar-hidden');
-        }
-
-        // ARISE SMP Exact Rank Data
+        function toggleSidebar() { document.getElementById('sidebar').classList.toggle('sidebar-hidden'); }
         const rankData = {
-            rookie: {
-                title: "ROOKIE RANK KITS",
-                price: "₹49 INR",
-                items: [
-                    "💎 Diamond Armor (Mending & Unbreaking)",
-                    "⚔️ Diamond Tools (Mending & Unbreaking)"
-                ],
-                perks: [
-                    "⛏️ 15x Diamonds & 64x Copper Ingots",
-                    "🍎 15x Golden Apples",
-                    "✨ 2x Enchanted Golden Apples",
-                    "🍪 64x Cookies"
-                ]
-            },
-            warrior: {
-                title: "WARRIOR RANK KITS",
-                price: "₹99 INR",
-                items: [
-                    "💎 Max Diamond Armor Set",
-                    "⚔️ Max Diamond Tools"
-                ],
-                perks: [
-                    "⛏️ 32x Diamonds & 64x Copper Ingots",
-                    "🍎 15x Golden Apples",
-                    "✨ 5x Enchanted Golden Apples",
-                    "🍪 64x Cookies",
-                    "🎨 2x Dune Armor Trims"
-                ]
-            },
-            knight: {
-                title: "KNIGHT RANK KITS",
-                price: "₹169 INR",
-                items: [
-                    "🔥 Netherite Armor (Mending & Unbreaking)",
-                    "⚔️ Netherite Tools (Mending & Unbreaking)"
-                ],
-                perks: [
-                    "⛏️ 42x Diamonds & 64x Copper Ingots",
-                    "🍎 30x Golden Apples",
-                    "✨ 8x Enchanted Golden Apples",
-                    "🍪 64x Cookies",
-                    "🎨 2x Wax Armor Trims"
-                ]
-            },
-            elite: {
-                title: "ELITE RANK KITS",
-                price: "₹259 INR",
-                items: [
-                    "🔥 Netherite Armor (Mending & Unbreaking)",
-                    "⚔️ Netherite Tools (Mending & Unbreaking)",
-                    "🧱 2x Netherite Ingots"
-                ],
-                perks: [
-                    "⛏️ 50x Diamonds & 64x Copper Ingots",
-                    "🍎 32x Golden Apples",
-                    "✨ 10x Enchanted Golden Apples",
-                    "🍪 64x Cookies",
-                    "🎨 2x Silence Armor Trims"
-                ]
-            },
-            legend: {
-                title: "LEGEND RANK KITS",
-                price: "₹299 INR",
-                items: [
-                    "👑 Max Netherite Armor Set",
-                    "⚔️ Max Netherite Tools",
-                    "🔨 Mace (WB-3 Enchantment)",
-                    "🧱 4x Netherite Ingots"
-                ],
-                perks: [
-                    "⛏️ 64x Diamonds & 64x Copper Ingots",
-                    "🍎 32x Golden Apples",
-                    "✨ 15x Enchanted Golden Apples",
-                    "🍪 64x Cookies",
-                    "🎨 2x Silence & 2x Dune Armor Trims"
-                ]
-            },
-            immortal: {
-                title: "IMMORTAL RANK KITS",
-                price: "₹359 INR",
-                items: [
-                    "👑 Max Netherite Armor Set",
-                    "⚔️ Max Netherite Tools",
-                    "🔨 Mace (Breach WB-3)",
-                    "🕊️ 1x Elytra"
-                ],
-                perks: [
-                    "⛏️ 64x Diamonds & 64x Copper Ingots",
-                    "🍎 64x Golden Apples",
-                    "✨ 20x Enchanted Golden Apples",
-                    "🎨 4x Silence & 2x Dune Armor Trims"
-                ]
-            }
+            rookie: { title: "ROOKIE RANK KITS", price: "₹49 INR", items: ["💎 Diamond Armor (Mending & Unbreaking)", "⚔️ Diamond Tools (Mending & Unbreaking)"], perks: ["⛏️ 15x Diamonds & 64x Copper Ingots", "🍎 15x Golden Apples", "✨ 2x Enchanted Golden Apples", "🍪 64x Cookies"] },
+            warrior: { title: "WARRIOR RANK KITS", price: "₹99 INR", items: ["💎 Max Diamond Armor Set", "⚔️ Max Diamond Tools"], perks: ["⛏️ 32x Diamonds & 64x Copper Ingots", "🍎 15x Golden Apples", "✨ 5x Enchanted Golden Apples", "🍪 64x Cookies", "🎨 2x Dune Armor Trims"] },
+            knight: { title: "KNIGHT RANK KITS", price: "₹169 INR", items: ["🔥 Netherite Armor (Mending & Unbreaking)", "⚔️ Netherite Tools (Mending & Unbreaking)"], perks: ["⛏️ 42x Diamonds & 64x Copper Ingots", "🍎 30x Golden Apples", "✨ 8x Enchanted Golden Apples", "🍪 64x Cookies", "🎨 2x Wax Armor Trims"] },
+            elite: { title: "ELITE RANK KITS", price: "₹259 INR", items: ["🔥 Netherite Armor (Mending & Unbreaking)", "⚔️ Netherite Tools (Mending & Unbreaking)", "🧱 2x Netherite Ingots"], perks: ["⛏️ 50x Diamonds & 64x Copper Ingots", "🍎 32x Golden Apples", "✨ 10x Enchanted Golden Apples", "🍪 64x Cookies", "🎨 2x Silence Armor Trims"] },
+            legend: { title: "LEGEND RANK KITS", price: "₹299 INR", items: ["👑 Max Netherite Armor Set", "⚔️ Max Netherite Tools", "🔨 Mace (WB-3 Enchantment)", "🧱 4x Netherite Ingots"], perks: ["⛏️ 64x Diamonds & 64x Copper Ingots", "🍎 32x Golden Apples", "✨ 15x Enchanted Golden Apples", "🍪 64x Cookies", "🎨 2x Silence & 2x Dune Armor Trims"] },
+            immortal: { title: "IMMORTAL RANK KITS", price: "₹359 INR", items: ["👑 Max Netherite Armor Set", "⚔️ Max Netherite Tools", "🔨 Mace (Breach WB-3)", "🕊️ 1x Elytra"], perks: ["⛏️ 64x Diamonds & 64x Copper Ingots", "🍎 64x Golden Apples", "✨ 20x Enchanted Golden Apples", "🎨 4x Silence & 2x Dune Armor Trims"] }
         };
 
-        function selectRank(rankKey) {
-            // Remove active status from all cards
-            document.querySelectorAll('.rank-card').forEach(card => card.classList.remove('active'));
-            
-            // Highlight selected card
-            document.getElementById(`card-${rankKey}`).classList.add('active');
-
-            // Trigger fade animation
-            const panel = document.getElementById('inspector-panel');
-            panel.classList.remove('fade-in');
-            void panel.offsetWidth; // Trigger reflow to restart animation
-            panel.classList.add('fade-in');
-
-            const rank = rankData[rankKey];
-            
-            // Update Title and Price
-            document.getElementById('kit-title').innerText = rank.title;
-            document.getElementById('kit-price').innerText = rank.price;
-
-            // Render Items
-            const itemsList = document.getElementById('kit-items');
-            itemsList.innerHTML = rank.items.map(item => `<li class="bg-[#0a0a0a] p-3 rounded-lg border border-[#2e1065] shadow-[0_0_10px_rgba(0,0,0,0.5)]">${item}</li>`).join('');
-
-            // Render Perks / Resources
-            const perksList = document.getElementById('kit-perks');
-            perksList.innerHTML = rank.perks.map(perk => `<li class="bg-[#0a0a0a] p-3 rounded-lg border border-[#2e1065] shadow-[0_0_10px_rgba(0,0,0,0.5)]">${perk}</li>`).join('');
+        function selectRank(key) {
+            document.querySelectorAll('.rank-card').forEach(c => c.classList.remove('active'));
+            document.getElementById(`card-${key}`).classList.add('active');
+            const r = rankData[key];
+            document.getElementById('kit-title').innerText = r.title;
+            document.getElementById('kit-price').innerText = r.price;
+            document.getElementById('kit-items').innerHTML = r.items.map(i => `<li class="bg-[#0a0a0a] p-3 rounded-lg border border-[#2e1065]">${i}</li>`).join('');
+            document.getElementById('kit-perks').innerHTML = r.perks.map(p => `<li class="bg-[#0a0a0a] p-3 rounded-lg border border-[#2e1065]">${p}</li>`).join('');
         }
-
-        // Initialize with default rank
         selectRank('rookie');
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.aura-border, h1').forEach(el => {
+                el.style.opacity = "0"; el.style.transform = "translateY(25px)";
+                el.style.transition = "opacity 0.6s ease-out, transform 0.6s ease-out";
+                observer.observe(el);
+            });
+            const style = document.createElement('style');
+            style.innerHTML = `.visible { opacity: 1 !important; transform: translateY(0) !important; }`;
+            document.head.appendChild(style);
+        });
     </script>
 </body>
 </html>
