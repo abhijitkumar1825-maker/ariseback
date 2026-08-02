@@ -16,13 +16,19 @@
         .rank-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; background: #050505; }
         .rank-card:hover { transform: translateY(-8px); border-color: #a855f7; box-shadow: 0 0 35px rgba(168, 85, 247, 0.4); }
         .rank-card.active { border-color: #c084fc; background: linear-gradient(180deg, #110524 0%, #050505 100%); box-shadow: 0 0 40px rgba(168, 85, 247, 0.6); }
+        
         .buy-btn-glow {
             background: linear-gradient(135deg, #4c1d95 0%, #9333ea 50%, #c084fc 100%);
             border: 1px solid #d8b4fe;
             box-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
             transition: all 0.3s ease;
         }
-        .buy-btn-glow:hover { transform: scale(1.03); box-shadow: 0 0 35px rgba(216, 180, 254, 0.9), inset 0 0 15px rgba(255, 255, 255, 0.4); filter: brightness(1.15); }
+        .buy-btn-glow:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 35px rgba(216, 180, 254, 0.9), inset 0 0 15px rgba(255, 255, 255, 0.4);
+            filter: brightness(1.15);
+        }
+
         .sidebar { transition: transform 0.4s ease-in-out; z-index: 50; }
         @media (max-width: 768px) { .sidebar-hidden { transform: translateX(-100%); } }
     </style>
@@ -35,6 +41,7 @@
         <div class="p-8 text-center border-b border-[#2e1065]">
             <img src="./logo.png" alt="ARISE Logo" class="w-20 h-20 mx-auto mb-2 object-contain drop-shadow-[0_0_15px_rgba(147,51,234,0.5)]" onerror="this.style.display='none'">
             <h2 class="font-heading text-3xl font-bold tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-[#c084fc] to-[#e879f9]">ARISE</h2>
+            <p class="text-xs text-gray-400 tracking-widest uppercase">Network</p>
         </div>
         <nav class="flex-1 px-4 py-6 space-y-2">
             <a href="/" class="nav-item flex items-center space-x-4 px-4 py-3 text-gray-300 rounded-lg"><i class="fas fa-home w-5 text-center text-[#c084fc]"></i><span class="font-semibold">Home</span></a>
